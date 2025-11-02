@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.udea.crudentregas", "controller", "service", "exception"})
+@ComponentScan(basePackages = { "com.udea.crudentregas", "controller", "service", "exception", "config" })
 @EntityScan(basePackages = "domain")
 @EnableJpaRepositories(basePackages = "repository")
 public class CrudEntregasApplication {
