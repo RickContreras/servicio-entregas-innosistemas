@@ -24,7 +24,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (delivery.getTitle() == null || delivery.getTitle().trim().isEmpty()) {
             throw new BadRequestException("El título de la entrega es obligatorio");
         }
-        if (delivery.getTeam_id() == null) {
+        if (delivery.getProject_id() == null) {
             throw new BadRequestException("El id del equipo es obligatorio");
         }
         return deliveryRepository.save(delivery);
@@ -52,7 +52,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (delivery.getTitle() == null || delivery.getTitle().trim().isEmpty()) {
             throw new BadRequestException("El título de la entrega es obligatorio");
         }
-        if (delivery.getTeam_id() == null) {
+        if (delivery.getProject_id() == null) {
             throw new BadRequestException("El id del equipo es obligatorio");
         }
         if (!deliveryRepository.existsById(delivery.getId())) {
@@ -71,5 +71,12 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
         deliveryRepository.deleteById(id);
     }
-}
 
+
+    public List<Delivery> findByProjectId(Integer projectId) {
+        if (projectId == null) {
+            throw new BadRequestException("El id del proyecto no puede ser nulo");
+        }
+        return deliveryRepository.findByProjectId(projectId);
+    }
+}
