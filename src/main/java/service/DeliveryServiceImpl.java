@@ -72,7 +72,6 @@ public class DeliveryServiceImpl implements DeliveryService {
         deliveryRepository.deleteById(id);
     }
 
-
     public List<Delivery> findByProjectId(Integer projectId) {
         if (projectId == null) {
             throw new BadRequestException("El id del proyecto no puede ser nulo");

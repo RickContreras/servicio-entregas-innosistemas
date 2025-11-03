@@ -10,18 +10,18 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     private String title;
-    
+
     private String description;
-    
+
     @Column(name = "file_url")
     private String fileUrl;
-    
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    
+
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
 
