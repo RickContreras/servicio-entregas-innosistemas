@@ -54,7 +54,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     // Métodos de validación privados para reducir complejidad ciclomática
-    
+
     private void validateDeliveryForSave(Delivery delivery) {
         validateDeliveryNotNull(delivery);
         validateTitle(delivery.getTitle());
