@@ -39,12 +39,7 @@ public class DeliveryController {
 
     @PutMapping("/{id}")
     public Delivery updateDelivery(@PathVariable Long id, @RequestBody Delivery delivery) {
-        Delivery deliveryDb = deliveryService.findById(id);
-        deliveryDb.setTitle(delivery.getTitle());
-        deliveryDb.setDescription(delivery.getDescription());
-        deliveryDb.setFileUrl(delivery.getFileUrl());
-        deliveryDb.setProjectId(delivery.getProjectId());
-        return deliveryService.update(deliveryDb);
+        return deliveryService.updateDelivery(id, delivery);
     }
 
     @DeleteMapping("/{id}")

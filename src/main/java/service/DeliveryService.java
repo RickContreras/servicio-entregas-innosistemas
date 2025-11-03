@@ -14,5 +14,7 @@ public interface DeliveryService {
 
     Delivery update(Delivery delivery);
 
+    Delivery updateDelivery(Long id, Delivery delivery);
+
     void deleteById(Long id);
 }

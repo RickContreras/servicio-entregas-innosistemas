@@ -212,7 +212,7 @@ class DeliveryServiceImplTest {
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
             deliveryService.update(validDelivery);
         });
-        assertEquals("El id de la entrega no puede ser nulo", exception.getMessage());
+        assertEquals("El id no puede ser nulo", exception.getMessage());
         verify(deliveryRepository, never()).save(any());
     }
 
