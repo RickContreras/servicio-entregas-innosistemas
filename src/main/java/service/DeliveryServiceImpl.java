@@ -24,7 +24,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (delivery.getTitle() == null || delivery.getTitle().trim().isEmpty()) {
             throw new BadRequestException("El título de la entrega es obligatorio");
         }
-        if (delivery.getProject_id() == null) {
+        if (delivery.getProjectId() == null) {
             throw new BadRequestException("El id del equipo es obligatorio");
         }
         return deliveryRepository.save(delivery);
@@ -52,7 +52,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (delivery.getTitle() == null || delivery.getTitle().trim().isEmpty()) {
             throw new BadRequestException("El título de la entrega es obligatorio");
         }
-        if (delivery.getProject_id() == null) {
+        if (delivery.getProjectId() == null) {
             throw new BadRequestException("El id del equipo es obligatorio");
         }
         if (!deliveryRepository.existsById(delivery.getId())) {

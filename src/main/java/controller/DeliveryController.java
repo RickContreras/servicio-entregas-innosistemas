@@ -42,8 +42,8 @@ public class DeliveryController {
         Delivery deliveryDb = deliveryService.findById(id);
         deliveryDb.setTitle(delivery.getTitle());
         deliveryDb.setDescription(delivery.getDescription());
-        deliveryDb.setFile_url(delivery.getFile_url());
-        deliveryDb.setProject_id(delivery.getProject_id());
+        deliveryDb.setFileUrl(delivery.getFileUrl());
+        deliveryDb.setProjectId(delivery.getProjectId());
         return deliveryService.update(deliveryDb);
     }
 

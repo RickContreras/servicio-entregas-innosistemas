@@ -10,32 +10,38 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @Column(nullable = false)
     private String title;
+    
     private String description;
-    private String file_url;
-    @Column(nullable = false)
-    private LocalDateTime created_at;
-    @Column(nullable = false)
-    private Integer project_id;
+    
+    @Column(name = "file_url")
+    private String fileUrl;
+    
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+    
+    @Column(name = "project_id", nullable = false)
+    private Integer projectId;
 
     public Delivery() {
     }
 
-    public Delivery(Long id, String title, String description, String file_url, LocalDateTime created_at,
-            Integer project_id) {
+    public Delivery(Long id, String title, String description, String fileUrl, LocalDateTime createdAt,
+            Integer projectId) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.file_url = file_url;
-        this.created_at = created_at;
-        this.project_id = project_id;
+        this.fileUrl = fileUrl;
+        this.createdAt = createdAt;
+        this.projectId = projectId;
     }
 
     @PrePersist
     protected void onCreate() {
-        if (this.created_at == null) {
-            this.created_at = LocalDateTime.now();
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
         }
     }
 
@@ -63,28 +69,28 @@ public class Delivery {
         this.description = description;
     }
 
-    public String getFile_url() {
-        return file_url;
+    public String getFileUrl() {
+        return fileUrl;
     }
 
-    public void setFile_url(String file_url) {
-        this.file_url = file_url;
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Integer getProject_id() {
-        return project_id;
+    public Integer getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(Integer project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
 }

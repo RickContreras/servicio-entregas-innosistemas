@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,9 +39,9 @@ class DeliveryServiceImplTest {
         validDelivery.setId(1L);
         validDelivery.setTitle("Entrega 1");
         validDelivery.setDescription("Descripción de la entrega");
-        validDelivery.setFile_url("http://example.com/file.pdf");
-        validDelivery.setCreated_at(LocalDateTime.now());
-        validDelivery.setProject_id(100);
+        validDelivery.setFileUrl("http://example.com/file.pdf");
+        validDelivery.setCreatedAt(LocalDateTime.now());
+        validDelivery.setProjectId(100);
     }
 
     @Test
@@ -103,7 +102,7 @@ class DeliveryServiceImplTest {
     @DisplayName("Guardar entrega sin project_id debe lanzar BadRequestException")
     void testSaveDeliveryWithoutProjectId() {
         // Arrange
-        validDelivery.setProject_id(null);
+        validDelivery.setProjectId(null);
 
         // Act & Assert
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
@@ -120,7 +119,7 @@ class DeliveryServiceImplTest {
         Delivery delivery2 = new Delivery();
         delivery2.setId(2L);
         delivery2.setTitle("Entrega 2");
-        delivery2.setProject_id(200);
+        delivery2.setProjectId(200);
 
         List<Delivery> deliveries = Arrays.asList(validDelivery, delivery2);
         when(deliveryRepository.findAll()).thenReturn(deliveries);
@@ -235,7 +234,7 @@ class DeliveryServiceImplTest {
     @DisplayName("Actualizar entrega sin project_id debe lanzar BadRequestException")
     void testUpdateDeliveryWithoutProjectId() {
         // Arrange
-        validDelivery.setProject_id(null);
+        validDelivery.setProjectId(null);
 
         // Act & Assert
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
@@ -314,7 +313,7 @@ class DeliveryServiceImplTest {
         // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals(100, result.get(0).getProject_id());
+        assertEquals(100, result.get(0).getProjectId());
         verify(deliveryRepository, times(1)).findByProjectId(100);
     }
 

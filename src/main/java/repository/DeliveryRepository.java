@@ -9,11 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeliveryRepository extends JpaRepository<domain.Delivery, Long> {
 
-    // JPQL query referencing the entity field `project_id`. We use an explicit
-    // @Query
-    // so the repository exposes `findByProjectId(...)` even though the entity field
-    // uses an underscore naming convention.
-    @Query("SELECT d FROM Delivery d WHERE d.project_id = :projectId")
+    // JPQL query referencing the entity field projectId (mapped to database column project_id)
+    @Query("SELECT d FROM Delivery d WHERE d.projectId = :projectId")
     List<domain.Delivery> findByProjectId(@Param("projectId") Integer projectId);
 
 }

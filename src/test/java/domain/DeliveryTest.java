@@ -21,9 +21,9 @@ class DeliveryTest {
         assertNull(delivery.getId());
         assertNull(delivery.getTitle());
         assertNull(delivery.getDescription());
-        assertNull(delivery.getFile_url());
-        assertNull(delivery.getCreated_at());
-        assertNull(delivery.getProject_id());
+        assertNull(delivery.getFileUrl());
+        assertNull(delivery.getCreatedAt());
+        assertNull(delivery.getProjectId());
     }
 
     @Test
@@ -44,9 +44,9 @@ class DeliveryTest {
         assertEquals(id, delivery.getId());
         assertEquals(title, delivery.getTitle());
         assertEquals(description, delivery.getDescription());
-        assertEquals(fileUrl, delivery.getFile_url());
-        assertEquals(createdAt, delivery.getCreated_at());
-        assertEquals(projectId, delivery.getProject_id());
+        assertEquals(fileUrl, delivery.getFileUrl());
+        assertEquals(createdAt, delivery.getCreatedAt());
+        assertEquals(projectId, delivery.getProjectId());
     }
 
     @Test
@@ -65,17 +65,17 @@ class DeliveryTest {
         delivery.setId(id);
         delivery.setTitle(title);
         delivery.setDescription(description);
-        delivery.setFile_url(fileUrl);
-        delivery.setCreated_at(createdAt);
-        delivery.setProject_id(projectId);
+        delivery.setFileUrl(fileUrl);
+        delivery.setCreatedAt(createdAt);
+        delivery.setProjectId(projectId);
 
         // Assert
         assertEquals(id, delivery.getId());
         assertEquals(title, delivery.getTitle());
         assertEquals(description, delivery.getDescription());
-        assertEquals(fileUrl, delivery.getFile_url());
-        assertEquals(createdAt, delivery.getCreated_at());
-        assertEquals(projectId, delivery.getProject_id());
+        assertEquals(fileUrl, delivery.getFileUrl());
+        assertEquals(createdAt, delivery.getCreatedAt());
+        assertEquals(projectId, delivery.getProjectId());
     }
 
     @Test
@@ -90,7 +90,7 @@ class DeliveryTest {
         // Act & Assert
         assertEquals(id, delivery.getId());
         assertEquals(title, delivery.getTitle());
-        assertEquals(projectId, delivery.getProject_id());
+        assertEquals(projectId, delivery.getProjectId());
     }
 
     @Test
@@ -99,7 +99,7 @@ class DeliveryTest {
         // Arrange
         Delivery delivery = new Delivery();
         delivery.setTitle("Test");
-        delivery.setProject_id(100);
+        delivery.setProjectId(100);
         LocalDateTime before = LocalDateTime.now().minusSeconds(1);
 
         // Act
@@ -107,9 +107,9 @@ class DeliveryTest {
         LocalDateTime after = LocalDateTime.now().plusSeconds(1);
 
         // Assert
-        assertNotNull(delivery.getCreated_at());
-        assertTrue(delivery.getCreated_at().isAfter(before));
-        assertTrue(delivery.getCreated_at().isBefore(after));
+        assertNotNull(delivery.getCreatedAt());
+        assertTrue(delivery.getCreatedAt().isAfter(before));
+        assertTrue(delivery.getCreatedAt().isBefore(after));
     }
 
     @Test
@@ -118,13 +118,13 @@ class DeliveryTest {
         // Arrange
         LocalDateTime existingDate = LocalDateTime.of(2024, 1, 1, 10, 0);
         Delivery delivery = new Delivery();
-        delivery.setCreated_at(existingDate);
+        delivery.setCreatedAt(existingDate);
 
         // Act
         delivery.onCreate(); // Simula @PrePersist
 
         // Assert
-        assertEquals(existingDate, delivery.getCreated_at());
+        assertEquals(existingDate, delivery.getCreatedAt());
     }
 
     @Test
@@ -135,15 +135,15 @@ class DeliveryTest {
         delivery.setId(1L);
         delivery.setTitle("Título");
         delivery.setDescription(null);
-        delivery.setFile_url(null);
-        delivery.setProject_id(100);
+        delivery.setFileUrl(null);
+        delivery.setProjectId(100);
 
         // Assert
         assertNotNull(delivery.getId());
         assertNotNull(delivery.getTitle());
         assertNull(delivery.getDescription());
-        assertNull(delivery.getFile_url());
-        assertNotNull(delivery.getProject_id());
+        assertNull(delivery.getFileUrl());
+        assertNotNull(delivery.getProjectId());
     }
 
     @Test
@@ -155,14 +155,14 @@ class DeliveryTest {
         // Act
         delivery.setTitle("Actualizado");
         delivery.setDescription("Nueva descripción");
-        delivery.setFile_url("http://new-url.com");
-        delivery.setProject_id(200);
+        delivery.setFileUrl("http://new-url.com");
+        delivery.setProjectId(200);
 
         // Assert
         assertEquals("Actualizado", delivery.getTitle());
         assertEquals("Nueva descripción", delivery.getDescription());
-        assertEquals("http://new-url.com", delivery.getFile_url());
-        assertEquals(200, delivery.getProject_id());
+        assertEquals("http://new-url.com", delivery.getFileUrl());
+        assertEquals(200, delivery.getProjectId());
     }
 
     @Test
@@ -179,8 +179,8 @@ class DeliveryTest {
         // Act & Assert
         for (String url : urls) {
             Delivery delivery = new Delivery();
-            delivery.setFile_url(url);
-            assertEquals(url, delivery.getFile_url());
+            delivery.setFileUrl(url);
+            assertEquals(url, delivery.getFileUrl());
         }
     }
 
@@ -191,13 +191,13 @@ class DeliveryTest {
         Delivery delivery = new Delivery();
 
         // Act & Assert
-        delivery.setProject_id(1);
-        assertEquals(1, delivery.getProject_id());
+        delivery.setProjectId(1);
+        assertEquals(1, delivery.getProjectId());
 
-        delivery.setProject_id(999999);
-        assertEquals(999999, delivery.getProject_id());
+        delivery.setProjectId(999999);
+        assertEquals(999999, delivery.getProjectId());
 
-        delivery.setProject_id(0);
-        assertEquals(0, delivery.getProject_id());
+        delivery.setProjectId(0);
+        assertEquals(0, delivery.getProjectId());
     }
 }
