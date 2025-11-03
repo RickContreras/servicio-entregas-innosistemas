@@ -199,18 +199,18 @@ class DeliveryValidatorTest {
 
     @Test
     @DisplayName("Constructor de DeliveryValidator lanza IllegalStateException")
-    void testConstructorThrowsException() {
+    void testConstructorThrowsException() throws Exception {
+        // Arrange
+        var constructor = DeliveryValidator.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+
         // Act & Assert
-        try {
-            var constructor = DeliveryValidator.class.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            constructor.newInstance();
-            fail("Se esperaba una excepción");
-        } catch (Exception e) {
-            // La reflexión envuelve la excepción en InvocationTargetException
-            assertTrue(e.getCause() instanceof IllegalStateException);
-            assertEquals("Utility class", e.getCause().getMessage());
-        }
+        var exception = assertThrows(java.lang.reflect.InvocationTargetException.class,
+                constructor::newInstance);
+
+        // La reflexión envuelve la excepción en InvocationTargetException
+        assertTrue(exception.getCause() instanceof IllegalStateException);
+        assertEquals("Utility class", exception.getCause().getMessage());
     }
 
     @Test
