@@ -18,15 +18,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Delivery save(Delivery delivery) {
-        if (delivery == null) {
-            throw new BadRequestException("La entrega no puede ser nula");
-        }
-        if (delivery.getTitle() == null || delivery.getTitle().trim().isEmpty()) {
-            throw new BadRequestException("El título de la entrega es obligatorio");
-        }
-        if (delivery.getProjectId() == null) {
-            throw new BadRequestException("El id del equipo es obligatorio");
-        }
+        validateDeliveryForSave(delivery);
         return deliveryRepository.save(delivery);
     }
 
@@ -37,45 +29,78 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Delivery findById(Long id) {
-        if (id == null) {
-            throw new BadRequestException("El id no puede ser nulo");
-        }
+        validateIdNotNull(id);
         return deliveryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Entrega no encontrada con id: " + id));
     }
 
     @Override
     public Delivery update(Delivery delivery) {
-        if (delivery == null || delivery.getId() == null) {
-            throw new BadRequestException("La entrega y el id no pueden ser nulos");
-        }
-        if (delivery.getTitle() == null || delivery.getTitle().trim().isEmpty()) {
-            throw new BadRequestException("El título de la entrega es obligatorio");
-        }
-        if (delivery.getProjectId() == null) {
-            throw new BadRequestException("El id del equipo es obligatorio");
-        }
-        if (!deliveryRepository.existsById(delivery.getId())) {
-            throw new ResourceNotFoundException("Entrega no encontrada con id: " + delivery.getId());
-        }
+        validateDeliveryForUpdate(delivery);
+        validateDeliveryExists(delivery.getId());
         return deliveryRepository.save(delivery);
     }
 
     @Override
     public void deleteById(Long id) {
-        if (id == null) {
-            throw new BadRequestException("El id no puede ser nulo");
-        }
-        if (!deliveryRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Entrega no encontrada con id: " + id);
-        }
+        validateIdNotNull(id);
+        validateDeliveryExists(id);
         deliveryRepository.deleteById(id);
     }
 
     public List<Delivery> findByProjectId(Integer projectId) {
-        if (projectId == null) {
-            throw new BadRequestException("El id del proyecto no puede ser nulo");
-        }
+        validateProjectIdNotNull(projectId);
         return deliveryRepository.findByProjectId(projectId);
+    }
+
+    // Métodos de validación privados para reducir complejidad ciclomática
+    
+    private void validateDeliveryForSave(Delivery delivery) {
+        validateDeliveryNotNull(delivery);
+        validateTitle(delivery.getTitle());
+        validateProjectIdNotNull(delivery.getProjectId());
+    }
+
+    private void validateDeliveryForUpdate(Delivery delivery) {
+        validateDeliveryNotNull(delivery);
+        validateDeliveryIdNotNull(delivery);
+        validateTitle(delivery.getTitle());
+        validateProjectIdNotNull(delivery.getProjectId());
+    }
+
+    private void validateDeliveryNotNull(Delivery delivery) {
+        if (delivery == null) {
+            throw new BadRequestException("La entrega no puede ser nula");
+        }
+    }
+
+    private void validateDeliveryIdNotNull(Delivery delivery) {
+        if (delivery.getId() == null) {
+            throw new BadRequestException("El id de la entrega no puede ser nulo");
+        }
+    }
+
+    private void validateTitle(String title) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new BadRequestException("El título de la entrega es obligatorio");
+        }
+    }
+
+    private void validateProjectIdNotNull(Integer projectId) {
+        if (projectId == null) {
+            throw new BadRequestException("El id del equipo es obligatorio");
+        }
+    }
+
+    private void validateIdNotNull(Long id) {
+        if (id == null) {
+            throw new BadRequestException("El id no puede ser nulo");
+        }
+    }
+
+    private void validateDeliveryExists(Long id) {
+        if (!deliveryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Entrega no encontrada con id: " + id);
+        }
     }
 }

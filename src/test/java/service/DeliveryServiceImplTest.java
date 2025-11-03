@@ -198,7 +198,7 @@ class DeliveryServiceImplTest {
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
             deliveryService.update(null);
         });
-        assertEquals("La entrega y el id no pueden ser nulos", exception.getMessage());
+        assertEquals("La entrega no puede ser nula", exception.getMessage());
         verify(deliveryRepository, never()).save(any());
     }
 
@@ -212,7 +212,7 @@ class DeliveryServiceImplTest {
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
             deliveryService.update(validDelivery);
         });
-        assertEquals("La entrega y el id no pueden ser nulos", exception.getMessage());
+        assertEquals("El id de la entrega no puede ser nulo", exception.getMessage());
         verify(deliveryRepository, never()).save(any());
     }
 
@@ -324,7 +324,7 @@ class DeliveryServiceImplTest {
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
             deliveryService.findByProjectId(null);
         });
-        assertEquals("El id del proyecto no puede ser nulo", exception.getMessage());
+        assertEquals("El id del equipo es obligatorio", exception.getMessage());
         verify(deliveryRepository, never()).findByProjectId(any());
     }
 }
