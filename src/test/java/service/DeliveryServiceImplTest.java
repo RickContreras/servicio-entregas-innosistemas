@@ -327,4 +327,31 @@ class DeliveryServiceImplTest {
         assertEquals("El id del equipo es obligatorio", exception.getMessage());
         verify(deliveryRepository, never()).findByProjectId(any());
     }
+    @Test
+    @DisplayName("updateDelivery debe actualizar campos y guardar")
+    void testUpdateDelivery() {
+        Delivery existing = new Delivery(1L, "Old", "OldDesc", "old/url", LocalDateTime.now(), 50);
+        Delivery updated = new Delivery(null, "New", "NewDesc", "new/url", LocalDateTime.now(), 99);
+
+        when(deliveryRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(deliveryRepository.save(existing)).thenReturn(existing);
+
+        Delivery result = deliveryService.updateDelivery(1L, updated);
+
+        assertEquals("New", result.getTitle());
+        assertEquals("NewDesc", result.getDescription());
+        assertEquals("new/url", result.getFileUrl());
+        assertEquals(99, result.getProjectId());
+
+        verify(deliveryRepository, times(1)).save(existing);
+    }
+
+    @Test
+    @DisplayName("updateDelivery debe lanzar excepción cuando id no existe")
+    void testUpdateDeliveryNotFound() {
+        when(deliveryRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class,
+                () -> deliveryService.updateDelivery(1L, validDelivery));
+    }
 }
